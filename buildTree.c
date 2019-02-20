@@ -4,7 +4,7 @@
 #include "treeStructure.h" 
 
 
-/*Test github 3*/ 
+/*Test github 2*/ 
 //Node *makeNode( double x, double y, int level );
 //void makeChildren( Node *parent );
 
