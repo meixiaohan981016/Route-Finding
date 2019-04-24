@@ -3,7 +3,7 @@
 #include "string.h"
 #include "Graph.h" 
 
-void readData( Graph g){
+void readData( Graph *g){
 	FILE *fp;
 	int i=0,finda=0,findb=0,label=0,find_node=0;
 	
@@ -18,8 +18,12 @@ void readData( Graph g){
 	double lat,lon,length;
 	char nodeId[3],tag_lat[4],tag_lon[4];
 	char c[10000];
+	
+	//	Graph g(10000);
 
 	fp = fopen("Final_Map.map" ,"r");
+	if(fp==NULL)
+		printf("Cannot find map file");
 	while(fgets(c,10000,fp))
 	{
 		sscanf(c, "%5c", tag);
@@ -43,23 +47,23 @@ void readData( Graph g){
 			
 			if((finda+findb)==2)	
 			{
-				g.addEdge(a,b,length);
-				g.addEdge(b,a,length);
+				g->addEdge(a,b,length);
+				g->addEdge(b,a,length);
 			}	
 			else if(finda==0 && findb==1)
 			{
 				source[count+1]=node_one_id;
 			//	g.point[count+1]->nodeId=node_one_id;
-				g.addEdge(count+1,b,length);
-				g.addEdge(b,count+1,length);
+				g->addEdge(count+1,b,length);
+				g->addEdge(b,count+1,length);
 				count++;
 			}
 			else if(findb==0 && finda==1)	
 			{
 				source[count+1]=node_two_id;
 			//	g.point[count+1]->nodeId=node_two_id;
-				g.addEdge(a,count+1,length);
-				g.addEdge(count+1,a,length);
+				g->addEdge(a,count+1,length);
+				g->addEdge(count+1,a,length);
 				count++;
 			}		
 			else if(findb==0 && finda==0)	
@@ -68,18 +72,19 @@ void readData( Graph g){
 				//g.point[count+1]->nodeId=node_one_id;
 				source[count+2]=node_two_id;
 				//g.point[count+2]->nodeId=node_two_id;
-				g.addEdge(count+1,count+2,length);
-				g.addEdge(count+2,count+1,length);
+				g->addEdge(count+1,count+2,length);
+				g->addEdge(count+2,count+1,length);
 				count+=2;
 			}		
 			finda=0;
-			findb=0;	
+			findb=0;
+			count_point=count;	
 		}
 		
 		
 		else if( strcmp(tag,cmp2)==0 )
 		{
-			count_point=count;
+			
 			sscanf(c,"%s %3c %d %4c %lf %4c %lf",tag,nodeId,&nodeIdValue,tag_lat,&lat,tag_lon,&lon);
 			for(i=0;i<=count;i++){
 				if(nodeIdValue==source[i]){
@@ -90,13 +95,13 @@ void readData( Graph g){
 			}
 			if(find_node==1)
 			{
-				g.addPoint(lat,lon,nodeIdValue,label);
+				g->addPoint(lat,lon,nodeIdValue,label);
 				find_node=0;
 			}	
 			else
 			{
 				count_point+=1;
-				g.addPoint(lat,lon,nodeIdValue,count_point);
+				g->addPoint(lat,lon,nodeIdValue,count_point);
 				
 			}
 			

@@ -5,45 +5,40 @@
 #include <string.h>
 #include "Graph.h"
 #include "readData.h"
-#include "writePoint.h"
-#include "writeLine.h"
-#include "writeBestRoute.h"
+#include "plot.h"
+#include "interface.h"
+//#include "writeLine.h"
+//#include "writeBestRoute.h"
 
 using namespace std;
+
+int source[3000];
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main(int argc, char** argv) {
-	int i,a,b;
 	
-	Graph g;
-	g.Graph(10000);
-	readData(g);
+	Graph g(10000);
 	
-	for(i=0;i<=count;i++)
-	{
-		if (-1887796224==source[i])
-			a=i;
-		if (274252695==source[i])
-			b=i;				
-	}
+	readData(&g);
 	
-	writeMapPoint(g);
-	writeMapLine(g);
+	user();
+	
+	writeMapPoint(g.point);
+	writeMapLine(g.head,g.point);
 
-	
-   cout << "from source[a] to source[b] " << g.dijkstra(a,b)<<endl;
-	writeShortestLine(a,b,g);
-   
-   printf("from 0 to 5 shortest path is %i -> ", source[b]);
-   int k=b;
+   	cout << "from" << start <<"to"<< end << g.dijkstra(start,end) <<endl;
+	writeShortestLine(start,end,g.point,g.way);
+  
+   printf("from %d to %d shortest path is %i -> ", start,end,source[end]);
+   int k=end;
    do {
-	     if(g.way[k]!=a)
+	     if(g.way[k]!=start)
 	     //print shortest way
 		printf("%i ->",source[g.way[k]]); 
 		  k=g.way[k];
-	  }while(k != a);
-	  printf("%i",source[a]);
+	  }while(k != start);
+	  printf("%i",source[start]);
 	
 	
      //print souce point

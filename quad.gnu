@@ -1,0 +1,2 @@
+unset key
+plot [-1.564000:-1.543100][53.801600:53.811000] 'mapPoint.out' with points lc rgb "web-green" pointtype 7 pointsize 1.2,'mapLine.out' with lines lt 3 lw 2 linecolor rgb "web-green",'mapShortestLine.out' with lines lt 2 lw 2 linecolor rgb "salmon"

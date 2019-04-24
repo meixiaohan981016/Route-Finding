@@ -3,7 +3,7 @@
 #include "writeLine.h"
 #include "Graph.h" 
 
-	void writeMapLine(Graph g) {
+	void writeMapLine(Graph *g) {
 		
 		int i;
 	
@@ -20,12 +20,12 @@
 	
 	// recursively visit the leaf nodes
 	
-	void writeLine( FILE *fp, Graph g ,int label) { 	
+	void writeLine( FILE *fp, Graph *g ,int label) { 	
 	
 		if(edge->nxt==NULL)    	
-      		printOutLine( fp, g.point[label]->lat, g.point[label]->lon, g.point[g.head[label]->to]->lat, g.point[g.head[label]->to]->lon);
+      		printOutLine( fp, g->point[label]->lat, g->point[label]->lon, g->point[g.head[label]->to]->lat, g->point[g.head[label]->to]->lon);
       	else{
-      		printOutLine( fp, g.point[label]->lat, g.point[label]->lon, g.point[g.head[label]->to]->lat, g.point[g.head[label]->to]->lon);
+      		printOutLine( fp, g->point[label]->lat, g->point[label]->lon, g->point[g.head[label]->to]->lat, g->point[g.head[label]->to]->lon);
       		writeLine(fp,edge->nxt,label);
 		  }
     }

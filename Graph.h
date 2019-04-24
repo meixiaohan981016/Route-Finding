@@ -7,7 +7,7 @@ extern int source[3000];
 
 #define N 20000
 
-typedef struct graph
+struct Graph
 {
  //结构成员声明 
  int n;
@@ -38,6 +38,6 @@ typedef struct graph
  Graph(int _n);
  void init(int _n);
  double dijkstra(int S, int T); 
-}Graph;
+};
 
 #endif

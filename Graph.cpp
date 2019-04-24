@@ -3,10 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Graph.h">
+#include "Graph.h"
 
 using namespace std;
-int count_point=-1, count=-1;
+int count=-1;
+int count_point=-1;
 	
 	void Graph::addPoint(double latitude,double longtitude,int node,int count){
 	//	point[count].lat=latitude;
