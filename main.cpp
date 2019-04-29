@@ -7,41 +7,53 @@
 #include "readData.h"
 #include "plot.h"
 #include "interface.h"
-//#include "writeLine.h"
-//#include "writeBestRoute.h"
 
 using namespace std;
 
-int source[3000];
+int main(int argc, char* argv[]) {
+	
+	int num;	
+	
+	if(argc == 2)
+		num = atoi(argv[1]);
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
-
-int main(int argc, char** argv) {
+	else{
+		printf("No parameter or too many paramerters!");
+		exit(1);
+	}
 	
-	Graph g(10000);
+	Graph g(num);
 	
-	readData(&g);
+	int ret = readData(&g);
 	
-	user();
+	if(ret == 1){
+		printf("\nFail to read map data, please check after application exit");
+		exit(1);
+	}
+	
+	else if(ret == 2){
+		printf("\nThe file is not completely read! Please give a bigger parameter for number of points!");
+		exit(2);
+	}	
+		
+	while(userInput(&g) == 1)
+		printf("re-enter correct source and end points id in map:");			
 	
 	writeMapPoint(g.point);
+	
 	writeMapLine(g.head,g.point);
 
-   	cout << "from" << start <<"to"<< end << g.dijkstra(start,end) <<endl;
-	writeShortestLine(start,end,g.point,g.way);
-  
-   printf("from %d to %d shortest path is %i -> ", start,end,source[end]);
-   int k=end;
-   do {
-	     if(g.way[k]!=start)
-	     //print shortest way
-		printf("%i ->",source[g.way[k]]); 
-		  k=g.way[k];
-	  }while(k != start);
-	  printf("%i",source[start]);
+	printf("\n------------------------\n");
+   	cout << "from " << g.point[start]->nodeId << " to " << g.point[end]->nodeId << " " << "shortest distance is" << " " <<g.dijkstra(start,end) <<endl;
+   	printf("------------------------\n");
+   	
+	if(writeShortestLine(start,end,g.point,g.way) ==1){
+		printf("The shortest path is wrong! Exit application!");
+		exit(1);
+	};
 	
-	
-     //print souce point
+	displayBestRoute(g.way, &g);	
+
 	
 	return 0;
 }

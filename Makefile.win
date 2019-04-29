@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = Graph.o main.o readData.o writeBestRoute.o writeLine.o writePoint.o
-LINKOBJ  = Graph.o main.o readData.o writeBestRoute.o writeLine.o writePoint.o
+OBJ      = Graph.o main.o readData.o plot.o interface.o
+LINKOBJ  = Graph.o main.o readData.o plot.o interface.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -33,11 +33,8 @@ main.o: main.cpp
 readData.o: readData.cpp
 	$(CPP) -c readData.cpp -o readData.o $(CXXFLAGS)
 
-writeBestRoute.o: writeBestRoute.cpp
-	$(CPP) -c writeBestRoute.cpp -o writeBestRoute.o $(CXXFLAGS)
+plot.o: plot.cpp
+	$(CPP) -c plot.cpp -o plot.o $(CXXFLAGS)
 
-writeLine.o: writeLine.cpp
-	$(CPP) -c writeLine.cpp -o writeLine.o $(CXXFLAGS)
-
-writePoint.o: writePoint.cpp
-	$(CPP) -c writePoint.cpp -o writePoint.o $(CXXFLAGS)
+interface.o: interface.cpp
+	$(CPP) -c interface.cpp -o interface.o $(CXXFLAGS)

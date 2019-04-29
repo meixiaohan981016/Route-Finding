@@ -11,6 +11,6 @@ void writeMapLine(Graph::Edge * head[], Graph::Point *point[]);
 void writeLine( FILE *fp, Graph::Edge* edge ,int label, Graph::Point *point[]);
 void printOutLine( FILE *fp, double latFrom, double lonFrom,double latTo,double lonTo );
 
-void writeShortestLine(int from, int to, Graph::Point *point[],int way[]);
+int writeShortestLine(int from, int to, Graph::Point *point[],int way[]);
 
 #endif

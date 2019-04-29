@@ -6,19 +6,17 @@
 #include "Graph.h"
 
 using namespace std;
-int count=-1;
-int count_point=-1;
+	int count = -1;
+	int count_point = -1;	
 	
+	//add a point object which has a latitude and longtitude and an id
 	void Graph::addPoint(double latitude,double longtitude,int node,int count){
-	//	point[count].lat=latitude;
-	//	point[count].lon=longtitude;
-	//	point[count].nodeId=node;
-		point[count]=new Point(latitude, longtitude, node);
+		point[count] = new Point(latitude, longtitude, node);
 	}
 
-    //添加一条从from到to,长度为len的边
+    //add an edge which is from 'from' to 'to' and its length is 'len'
     void Graph::addEdge(int from, int to, double len){
-        head[from] = new Edge(to,len,head[from]);
+    	head[from] = new Edge(to,len,head[from]);
     }
 
     Graph::Graph(int _n = 0){
@@ -36,34 +34,36 @@ int count_point=-1;
     }
 
    
-    //用dijkstra算法求S到T的最短路径
+    //dikstra algorithm to compute out the shortest route from S to T
     double Graph::dijkstra(int S, int T){
         for(int i = 0; i < n; ++i){
             dis[i] = -1;
-            way[i]=-1;
+            way[i] = -1;
         }
+        
         dis[S] = 0;
-        way[S] =S;
-        //优先队列,每次取出离S点最近的点
-        //去松弛其他顶点
+        way[S] = S;
+        
+        //priority queue, pop out the point which is closest to S
+        //relax other start point
         priority_queue<pair<double,int> >q;
-        //将起点放入队列
-        q.push(make_pair(0,S));
-        while(!q.empty()){
+        //put the start Point S into the queue
+        q.push( make_pair(0,S) );
+        while( !q.empty() ){
             int u = q.top().second;
             double d = -q.top().first;
-            //每次取出队首
+            //pop out the top of the queue
             q.pop();
-            //遍历这个点的边去判断是否可以松弛
+            //traverse the edge of this point and perform the relaxation procedure
             for(Edge* i = head[u]; i != NULL; i = i->nxt){
                 int to = i->to;
 				double len = i->len;
-                //如果新的点还没有被访问过,或者通过u点访问更进,就用u点更新距离
-                //并将这个点放入队列
+                //if the new point has not been visited, upgrade the distance
+                //put this point into the queue
                 if(dis[to] == -1 || (dis[to] != -1 && dis[u] + len < dis[to]) ){
                     dis[to] = dis[u] + len;
-                    way[to]=u;
-                    q.push(make_pair(-dis[to],to));
+                    way[to] = u;//the way[to] stores the from point id in the best route
+                    q.push( make_pair(-dis[to],to) );
                 }
             }
         }
